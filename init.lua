@@ -1,4 +1,12 @@
 -- ========================================================================== --
+-- ==                           NEOVIDE SETTINGS 													 == --
+-- ========================================================================== --
+if vim.g.neovide then
+	vim.g.neovide_cursor_animation_length = 0
+	vim.g.neovide_cursor_vfx_mode = ""
+end
+
+-- ========================================================================== --
 -- ==                           EDITOR SETTINGS                            == --
 -- ========================================================================== --
 
@@ -10,6 +18,8 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.showmode = false
 vim.opt.termguicolors = true
+vim.opt.relativenumber = true
+vim.opt.modifiable = true
 
 -- Space as leader key
 vim.g.mapleader = ' '
@@ -166,3 +176,8 @@ cmp.setup({
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
   })
 })
+
+-- ========================================================================== --
+-- ==                              KEYMAPPINGS														 == --
+-- ========================================================================== --
+
