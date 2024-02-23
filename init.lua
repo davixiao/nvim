@@ -9,24 +9,22 @@ end
 -- ========================================================================== --
 -- ==                           EDITOR SETTINGS                            == --
 -- ========================================================================== --
-
 vim.opt.number = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.hlsearch = false
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.showmode = false
 vim.opt.termguicolors = true
 vim.opt.relativenumber = true
-vim.opt.modifiable = true
+vim.opt.scrolloff = 5
 
 -- Space as leader key
 vim.g.mapleader = ' '
 
 -- Basic clipboard interaction
-vim.keymap.set({'n', 'x', 'o'}, 'gy', '"+y') -- copy
-vim.keymap.set({'n', 'x', 'o'}, 'gp', '"+p') -- paste
+vim.keymap.set({'n', 'x', 'o'}, '<c-c>', '"+y') -- copy
+vim.keymap.set({'n', 'x', 'o'}, '<c-v>', '"+p') -- paste
 
 -- ========================================================================== --
 -- ==                               PLUGINS                                == --
@@ -53,9 +51,7 @@ function lazy.setup(plugins)
     return
   end
 
-  -- You can "comment out" the line below after lazy.nvim is installed
   lazy.install(lazy.path)
-
   vim.opt.rtp:prepend(lazy.path)
 
   require('lazy').setup(plugins, lazy.opts)
@@ -121,16 +117,11 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = {'lua', 'vim', 'vimdoc', 'json'},
 })
 
--- See :help MiniComment.config
+-- See "help MiniComment.config
 require('mini.comment').setup({})
 
--- See :help MiniSurround.config
+-- See "help MiniSurround.config
 require('mini.surround').setup({})
-
--- See :help MiniBufremove.config
-require('mini.bufremove').setup({})
-
-vim.keymap.set('n', '<leader>bc', '<cmd>lua pcall(MiniBufremove.delete)<cr>')
 
 -- See :help telescope.builtin
 vim.keymap.set('n', '<leader>?', '<cmd>Telescope oldfiles<cr>')
@@ -142,8 +133,6 @@ vim.keymap.set('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find<cr>'
 
 require('telescope').load_extension('fzf')
 
--- lsp-zero will integrate lspconfig and cmp for you
--- If you wish to do that manually, see the code here: 
 -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/lsp.md#how-does-it-work
 local lsp_zero = require('lsp-zero')
 
@@ -176,8 +165,4 @@ cmp.setup({
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
   })
 })
-
--- ========================================================================== --
--- ==                              KEYMAPPINGS														 == --
--- ========================================================================== --
 
