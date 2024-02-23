@@ -136,7 +136,7 @@ require('telescope').load_extension('fzf')
 -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/lsp.md#how-does-it-work
 local lsp_zero = require('lsp-zero')
 
-lsp_zero.on_attach(function(client, bufnr)
+lsp_zero.on_attach(function(_, bufnr)
   -- See :help lsp-zero-keybindings
   lsp_zero.default_keymaps({buffer = bufnr})
 end)
@@ -145,6 +145,35 @@ end)
 -- require('lspconfig').tsserver.setup({})
 -- require('lspconfig').eslint.setup({})
 -- require('lspconfig').rust_analyzer.setup({})
+
+local lsp_config = require('lspconfig')
+lsp_config.pyright.setup{}
+lsp_config.lua_ls.setup{
+	settings = {
+		Lua = {
+			runtime = {
+				-- Tell the language server which version of Lua you're using
+				-- (most likely LuaJIT in the case of Neovim)
+				version = 'LuaJIT',
+			},
+			diagnostics = {
+				-- Get the language server to recognize the `vim` global
+				globals = {
+					'vim',
+					'require'
+				},
+			},
+			workspace = {
+				-- Make the server aware of Neovim runtime files
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			-- Do not send telemetry data containing a randomized but unique identifier
+			telemetry = {
+				enable = false,
+			},
+		},
+	},
+}
 
 local cmp = require('cmp')
 local cmp_action = lsp_zero.cmp_action()
