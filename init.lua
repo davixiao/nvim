@@ -115,6 +115,10 @@ require('nvim-treesitter.configs').setup({
     enable = true,
   },
   ensure_installed = {'lua', 'vim', 'vimdoc', 'json'},
+	sync_install = true,
+	auto_install = true,
+	ignore_install = {},
+	modules = {},
 })
 
 -- See "help MiniComment.config
