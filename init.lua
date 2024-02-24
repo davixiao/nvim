@@ -6,7 +6,7 @@ if vim.g.neovide then
 	vim.g.neovide_cursor_vfx_mode = ""
 end
 
--- ========================================================================== --
+-- ========================================================================== --kk
 -- ==                           EDITOR SETTINGS                            == --
 -- ========================================================================== --
 vim.g.loaded_netrw = 1
@@ -37,6 +37,9 @@ vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end)
 vim.keymap.set('n', '<space>f', function()
 	vim.lsp.buf.format { async = true }
 end)
+
+-- Map ESC/Ctrl-[
+vim.keymap.set('i', 'jj', '<Esc>')
 
 -- ========================================================================== --
 -- ==                               PLUGINS                                == --
@@ -82,7 +85,6 @@ lazy.setup({
 	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 	{ 'echasnovski/mini.comment',                 branch = 'stable' },
 	{ 'echasnovski/mini.surround',                branch = 'stable' },
-	{ 'echasnovski/mini.bufremove',               branch = 'stable' },
 	{ 'VonHeikemen/lsp-zero.nvim',                branch = 'v3.x' },
 	{ 'lewis6991/gitsigns.nvim' },
 	{ 'neovim/nvim-lspconfig' },
@@ -102,13 +104,7 @@ vim.cmd.colorscheme('catppuccin-frappe')
 
 -- File Tree
 require('nvim-tree').setup()
-
--- Toggle file explorer
--- See :help netrw-browse-maps
 vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle %:p:h<cr>')
-
--- Open file explorer in current folder
-vim.keymap.set('n', '<leader>E', '<cmd>Lexplore %:p:h<cr>')
 
 -- See :help lualine.txt
 require('lualine').setup({
@@ -148,6 +144,7 @@ require('nvim-treesitter.configs').setup({
 
 -- See "help MiniComment.config
 require('mini.comment').setup({})
+vim.keymap.set('n', '<C-/>', 'gcc', { remap = true })
 
 -- See "help MiniSurround.config
 require('mini.surround').setup({})
@@ -212,16 +209,9 @@ cmp.setup({
 	sources = {
 		{ name = 'nvim_lsp' },
 		{ name = 'buffer' },
+		{ name = 'luasnip' },
 	},
 	formatting = lsp_zero.cmp_format(),
-	mapping = cmp.mapping.preset.insert({
-		['<CR>'] = cmp.mapping.confirm({ select = false }),
-		['<C-Space>'] = cmp.mapping.complete(),
-		['<C-f>'] = cmp_action.luasnip_jump_forward(),
-		['<C-b>'] = cmp_action.luasnip_jump_backward(),
-		['<C-u>'] = cmp.mapping.scroll_docs(-4),
-		['<C-d>'] = cmp.mapping.scroll_docs(4),
-	})
 })
 
 require('gitsigns').setup()
