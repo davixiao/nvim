@@ -109,7 +109,7 @@ vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle %:p:h<cr>')
 -- See :help lualine.txt
 require('lualine').setup({
 	options = {
-		theme = 'gruvbox-material',
+		theme = 'catppuccin-frappe',
 		icons_enabled = false,
 		component_separators = '|',
 		section_separators = '',
