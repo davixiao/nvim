@@ -73,7 +73,7 @@ lazy.path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 lazy.opts = {}
 
 lazy.setup({
-	{ 'sainnhe/gruvbox-material' },
+	{ 'catppuccin/nvim',                          name = 'catppuccin', priority = 1000 },
 	{ 'nvim-lualine/lualine.nvim' },
 	{ 'nvim-lua/plenary.nvim' },
 	{ 'nvim-tree/nvim-tree.lua' },
@@ -98,16 +98,14 @@ lazy.setup({
 -- ========================================================================== --
 
 -- Colorscheme settings
-vim.g.gruvbox_material_background = 'soft'
-vim.g.gruvbox_material_better_performance = 1
-vim.cmd.colorscheme('gruvbox-material')
+vim.cmd.colorscheme('catppuccin-frappe')
 
 -- File Tree
 require('nvim-tree').setup()
 
 -- Toggle file explorer
 -- See :help netrw-browse-maps
-vim.keymap.set('n', '<leader>e', '<cmd>Lexplore<cr>')
+vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle %:p:h<cr>')
 
 -- Open file explorer in current folder
 vim.keymap.set('n', '<leader>E', '<cmd>Lexplore %:p:h<cr>')
@@ -141,7 +139,7 @@ require('nvim-treesitter.configs').setup({
 	highlight = {
 		enable = true,
 	},
-	ensure_installed = { 'lua', 'vim', 'vimdoc', 'json' },
+	ensure_installed = { 'lua', 'vim', 'vimdoc', 'json', 'python' },
 	sync_install = true,
 	auto_install = true,
 	ignore_install = {},
