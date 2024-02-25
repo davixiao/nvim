@@ -174,7 +174,7 @@ end)
 -- require('lspconfig').rust_analyzer.setup({})
 
 local lsp_config = require('lspconfig')
-lsp_config.pyright.setup {}
+lsp_config.pyright.setup({})
 lsp_config.lua_ls.setup {
 	settings = {
 		Lua = {
@@ -201,9 +201,9 @@ lsp_config.lua_ls.setup {
 		},
 	},
 }
+lsp_config.gdscript.setup({})
 
 local cmp = require('cmp')
-local cmp_action = lsp_zero.cmp_action()
 
 -- See :help cmp-config
 cmp.setup({
