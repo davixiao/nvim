@@ -85,6 +85,7 @@ lazy.setup({
 	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 	{ 'echasnovski/mini.comment',                 branch = 'stable' },
 	{ 'echasnovski/mini.surround',                branch = 'stable' },
+	{ 'echasnovski/mini.pairs',                   branch = 'stable' },
 	{ 'VonHeikemen/lsp-zero.nvim',                branch = 'v3.x' },
 	{ 'lewis6991/gitsigns.nvim' },
 	{ 'neovim/nvim-lspconfig' },
@@ -94,7 +95,6 @@ lazy.setup({
 	{ 'L3MON4D3/LuaSnip' },
 	{ 'numToStr/FTerm.nvim' },
 })
-
 
 -- ========================================================================== --
 -- ==                         PLUGIN CONFIGURATION                         == --
@@ -149,6 +149,9 @@ vim.keymap.set('n', '<C-/>', 'gcc', { remap = true })
 
 -- See "help MiniSurround.config
 require('mini.surround').setup({})
+
+-- See "help MiniPairs.config
+require('mini.pairs').setup({})
 
 -- See :help telescope.builtin
 vim.keymap.set('n', '<leader>?', '<cmd>Telescope oldfiles<cr>')
