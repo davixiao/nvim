@@ -76,7 +76,7 @@ lazy.path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 lazy.opts = {}
 
 lazy.setup({
-	{ 'catppuccin/nvim',                          name = 'catppuccin', priority = 1000 },
+	{ 'cpea2506/one_monokai.nvim' },
 	{ 'nvim-lualine/lualine.nvim' },
 	{ 'nvim-lua/plenary.nvim' },
 	{ 'nvim-tree/nvim-tree.lua' },
@@ -101,7 +101,7 @@ lazy.setup({
 -- ========================================================================== --
 
 -- Colorscheme settings
-vim.cmd.colorscheme('catppuccin-frappe')
+vim.cmd.colorscheme('one_monokai')
 
 -- File Tree
 require('nvim-tree').setup()
@@ -110,7 +110,7 @@ vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle %:p:h<cr>')
 -- See :help lualine.txt
 require('lualine').setup({
 	options = {
-		theme = 'catppuccin-frappe',
+		theme = 'one_monokai',
 		icons_enabled = false,
 		component_separators = '|',
 		section_separators = '',
