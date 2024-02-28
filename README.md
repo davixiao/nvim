@@ -2,7 +2,7 @@
 
 TODO:
 - add package for merge conflicts
-
+- run unit test from current line
 **lsp-config**
 Supported LSPs: 
 https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
