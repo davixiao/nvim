@@ -79,12 +79,19 @@ lazy.setup({
 	{ 'cpea2506/one_monokai.nvim' },
 	{ 'nvim-lualine/lualine.nvim' },
 	{ 'nvim-lua/plenary.nvim' },
-	{ 'nvim-tree/nvim-tree.lua' },
+	{
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+			"nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    },
+	},
 	{ 'nvim-treesitter/nvim-treesitter' },
 	{ 'nvim-telescope/telescope.nvim',            branch = '0.1.x' },
 	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 	{ 'echasnovski/mini.comment',                 branch = 'stable' },
-	{ 'echasnovski/mini.surround',                branch = 'stable' },
 	{ 'echasnovski/mini.pairs',                   branch = 'stable' },
 	{ 'VonHeikemen/lsp-zero.nvim',                branch = 'v3.x' },
 	{ 'lewis6991/gitsigns.nvim' },
@@ -104,8 +111,20 @@ lazy.setup({
 vim.cmd.colorscheme('one_monokai')
 
 -- File Tree
-require('nvim-tree').setup()
-vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle %:p:h<cr>')
+-- require('nvim-tree').setup()
+require("neo-tree").setup({
+	filesystem = {
+		follow_current_file = true,
+		filtered_items = {
+			visible = true,
+			show_hidden_count = true,
+			hide_dotfiles = false,
+			hide_gitignored = false,
+		}
+	}
+})
+vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<cr>')
+vim.keymap.set('n', '<leader>x', '<cmd>Neotree focus<cr>')
 
 -- See :help lualine.txt
 require('lualine').setup({
@@ -146,12 +165,32 @@ require('nvim-treesitter.configs').setup({
 -- See "help MiniComment.config
 require('mini.comment').setup({})
 vim.keymap.set('n', '<C-/>', 'gcc', { remap = true })
-
--- See "help MiniSurround.config
-require('mini.surround').setup({})
-
 -- See "help MiniPairs.config
-require('mini.pairs').setup({})
+require('mini.pairs').setup({
+  -- In which modes mappings from this `config` should be created
+  modes = { insert = true, command = false, terminal = false },
+
+  -- Global mappings. Each right hand side should be a pair information, a
+  -- table with at least these fields (see more in |MiniPairs.map|):
+  -- - <action> - one of 'open', 'close', 'closeopen'.
+  -- - <pair> - two character string for pair to be used.
+  -- By default pair is not inserted after `\`, quotes are not recognized by
+  -- `<CR>`, `'` does not insert pair after a letter.
+  -- Only parts of tables can be tweaked (others will use these defaults).
+  mappings = {
+    -- ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\].' },
+    ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\].' },
+    ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\].' },
+
+    -- [')'] = { action = 'close', pair = '()', neigh_pattern = '[^\\].' },
+    [']'] = { action = 'close', pair = '[]', neigh_pattern = '[^\\].' },
+    ['}'] = { action = 'close', pair = '{}', neigh_pattern = '[^\\].' },
+
+    ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^\\].', register = { cr = false } },
+    ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%a\\].', register = { cr = false } },
+    ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\].', register = { cr = false } },
+  },
+})
 
 -- See :help telescope.builtin
 vim.keymap.set('n', '<leader>?', '<cmd>Telescope oldfiles<cr>')
@@ -212,7 +251,7 @@ lsp_config.lua_ls.setup {
 lsp_config.gdscript.setup({})
 
 -- Golang
-lsp_config.gopls.setup({})
+-- lsp_config.gopls.setup({})
 local cmp = require('cmp')
 
 -- See :help cmp-config
@@ -224,29 +263,29 @@ cmp.setup({
 	},
 	formatting = lsp_zero.cmp_format(),
 })
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    local params = vim.lsp.util.make_range_params()
-    params.context = {only = {"source.organizeImports"}}
-    -- buf_request_sync defaults to a 1000ms timeout. Depending on your
-    -- machine and codebase, you may want longer. Add an additional
-    -- argument after params if you find that you have to write the file
-    -- twice for changes to be saved.
-    -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
-    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-    for cid, res in pairs(result or {}) do
-      for _, r in pairs(res.result or {}) do
-        if r.edit then
-          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-          vim.lsp.util.apply_workspace_edit(r.edit, enc)
-        end
-      end
-    end
-    vim.lsp.buf.format({async = false})
-  end
-})
+-- 
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = "*.go",
+--   callback = function()
+--     local params = vim.lsp.util.make_range_params()
+--     params.context = {only = {"source.organizeImports"}}
+--     -- buf_request_sync defaults to a 1000ms timeout. Depending on your
+--     -- machine and codebase, you may want longer. Add an additional
+--     -- argument after params if you find that you have to write the file
+--     -- twice for changes to be saved.
+--     -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
+--     local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+--     for cid, res in pairs(result or {}) do
+--       for _, r in pairs(res.result or {}) do
+--         if r.edit then
+--           local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+--           vim.lsp.util.apply_workspace_edit(r.edit, enc)
+--         end
+--       end
+--     end
+--     vim.lsp.buf.format({async = false})
+--   end
+-- })
 
 require('gitsigns').setup()
 
