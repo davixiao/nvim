@@ -262,6 +262,9 @@ cmp.setup({
 		{ name = 'luasnip' },
 	},
 	formatting = lsp_zero.cmp_format(),
+	mapping = {
+  	['<TAB>'] = cmp.mapping.select_next_item(),
+	},
 })
 -- 
 -- vim.api.nvim_create_autocmd("BufWritePre", {
@@ -288,7 +291,6 @@ cmp.setup({
 -- })
 
 require('gitsigns').setup()
-
 
 -- FTerm Force Close and Toggle
 vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })
