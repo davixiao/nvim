@@ -21,7 +21,6 @@ vim.opt.showmode = false
 vim.opt.termguicolors = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 5
-
 -- Space as leader key
 vim.g.mapleader = ' '
 
@@ -37,9 +36,6 @@ vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end)
 vim.keymap.set('n', '<space>f', function()
 	vim.lsp.buf.format { async = true }
 end)
-
--- Map ESC/Ctrl-[
-vim.keymap.set('i', 'jj', '<Esc>')
 
 -- ========================================================================== --
 -- ==                               PLUGINS                                == --
