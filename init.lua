@@ -96,7 +96,6 @@ lazy.setup({
 	{ 'hrsh7th/cmp-nvim-lsp' },
 	{ 'hrsh7th/cmp-buffer' },
 	{ 'L3MON4D3/LuaSnip' },
-	{ 'numToStr/FTerm.nvim' },
 })
 
 -- ========================================================================== --
@@ -265,9 +264,3 @@ cmp.setup({
 
 require('gitsigns').setup()
 
--- FTerm Force Close and Toggle
-vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })
-vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true })
-vim.keymap.set({ 'n', 't' }, '<C-i>', '<cmd>FTermToggle<cr>')
-vim.keymap.set('t', '<C-i>', '<cmd>FTermToggle<cr>')
-vim.keymap.set('t', '<C-n>', '<cmd>FTermExit<cr>')
