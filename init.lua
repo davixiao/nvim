@@ -33,6 +33,7 @@ require("lazy").setup({
         "https://github.com/junegunn/seoul256.vim",
         config = function()
             vim.cmd([[colorscheme seoul256]])
+            vim.cmd([[set background=light]])
         end,
     },
     {
