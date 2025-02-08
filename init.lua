@@ -7,9 +7,9 @@ vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 0
 
-vim.g.mapleader = " "
-
 vim.opt.clipboard = "unnamedplus"
+
+vim.g.mapleader = " "
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -30,10 +30,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
-        "https://github.com/junegunn/seoul256.vim",
+        "https://github.com/joshdick/onedark.vim",
         config = function()
-            vim.cmd([[colorscheme seoul256]])
-            vim.cmd([[set background=light]])
+            vim.cmd([[colorscheme onedark]])
         end,
     },
     {
