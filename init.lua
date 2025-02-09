@@ -30,9 +30,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
-        "https://github.com/joshdick/onedark.vim",
+        "https://github.com/sainnhe/gruvbox-material",
         config = function()
-            vim.cmd([[colorscheme onedark]])
+            vim.opt.termguicolors = true
+            vim.o.background = "dark"
+            vim.g.gruvbox_material_background = "soft"
+            vim.cmd([[colorscheme gruvbox-material]])
         end,
     },
     {
