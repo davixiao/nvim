@@ -11,6 +11,14 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.g.mapleader = " "
 
+-- Map Leader-y to yank to system clipboard
+vim.keymap.set("n", "<leader>y", '"+y', { noremap = true, silent = true })
+vim.keymap.set("v", "<leader>y", '"+y', { noremap = true, silent = true })
+
+-- Map Leader-p to paste from system clipboard
+vim.keymap.set("n", "<leader>p", '"+p', { noremap = true, silent = true })
+vim.keymap.set("v", "<leader>p", '"+p', { noremap = true, silent = true })
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -30,12 +38,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
-        "https://github.com/sainnhe/gruvbox-material",
+        "https://github.com/joshdick/onedark.vim",
         config = function()
-            vim.opt.termguicolors = true
-            vim.o.background = "dark"
-            vim.g.gruvbox_material_background = "soft"
-            vim.cmd([[colorscheme gruvbox-material]])
+            vim.cmd([[colorscheme onedark]])
         end,
     },
     {
